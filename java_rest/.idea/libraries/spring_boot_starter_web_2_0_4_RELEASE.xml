@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spring-boot-starter-web-2.0.4.RELEASE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-boot-starter-web-2.0.4.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

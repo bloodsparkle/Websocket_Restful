@@ -2,18 +2,21 @@ package me.gacl.websocket;
 
 import org.dom4j.DocumentException;
 import utils.FileUtils;
+import utils.connectWebsocket;
 import xmlProcess.DatasetProcessor;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint("/trainData")
-public class receiveData extends modelData {
+@ServerEndpoint("/result")
+public class resultData extends modelData {
+
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
 
@@ -32,7 +35,7 @@ public class receiveData extends modelData {
         this.session = session;
         webSocketSet.add(this);     //加入set中
 //        addOnlineCount();           //在线数加1
-        System.out.println("有新连接加入！" );
+        System.out.println("result connection successfully" );
     }
 
     /**
@@ -52,36 +55,25 @@ public class receiveData extends modelData {
      */
     //TODO 完善数据接收的步骤
     @OnMessage
-    public void onMessage(String message, Session session) {
-        System.out.println("来自python端的数据");
+    public void onMessage(String message, Session session) throws IOException {
 
-        //1 接收数据
-        FileUtils rev_data= new FileUtils();
-        rev_data.transportByteToFile(message,"E:\\API\\data\\train\\trainData.xml");
+        String uri = "ws://localhost:5001/result";
+        URI revResultUri = URI.create(uri);
 
-        //2 xml文件解析
-        DatasetProcessor dataprocess = new DatasetProcessor();
-        File file = new File("E:\\API\\data\\train\\trainData.xml");
-        try {
-            List dataset = new ArrayList();
-            dataset = dataprocess.analyzeXmlFile(file);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-
-        //3 相关信息提取
-
-        //4 反馈信息到python端
-        for(modelData item: webSocketSet) {
-            try {
-                item.sendMessage("数据接收完毕");
-            } catch (IOException e) {
-                e.printStackTrace();
-                continue;
-            }
+        System.out.println(message);
+        //接收反馈训练结果
+        if (message.equals("result")) {
+            System.out.println("require python result");
+//            this.session.getBasicRemote().sendText("require result");
+            connectWebsocket wss = new connectWebsocket( revResultUri);
+            wss.connect();
+//            wss.send("haha");
+//            this.session.getBasicRemote().sendText("require result");
+            FileUtils rev_data = new FileUtils();
+            rev_data.transportByteToFile(message, "E:\\API\\java\\data\\result.xml");
+            this.session.getBasicRemote().sendText("receive complete");
         }
     }
-
     /**
      * 发生错误时调用
      * @param session

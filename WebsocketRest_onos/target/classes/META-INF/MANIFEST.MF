@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1534576382335
+Build-Jdk: 1.8.0_171
+Built-By: mica
+Bundle-Description: ONOS OSGi bundle archetype
+Bundle-ManifestVersion: 2
+Bundle-Name: WebsocketRest
+Bundle-SymbolicName: bupt.soon.WebsocketRest
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: xmlProcess;uses:="org.dom4j";version="1.0.0",me.gacl.web
+ socket;uses:="javax.websocket,javax.websocket.server,org.java_websocket
+ ,org.java_websocket.handshake,org.java_websocket.server";version="1.0.0
+ ",utils;uses:="org.java_websocket,org.java_websocket.client,org.java_we
+ bsocket.handshake";version="1.0.0",bupt.soon;version="1.0.0"
+Import-Package: javax.websocket,javax.websocket.server,org.dom4j;version
+ ="[1.6,2)",org.dom4j.io;version="[1.6,2)",org.java_websocket,org.java_w
+ ebsocket.client,org.java_websocket.handshake,org.java_websocket.server,
+ org.slf4j;version="[1.7,2)",utils
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Service-Component: OSGI-INF/bupt.soon.AppComponent.xml
+Tool: Bnd-3.3.0.201609221906

@@ -1,0 +1,95 @@
+package utils;
+
+import org.java_websocket.client.WebSocketClient;
+
+import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+
+
+public class FileUtils {
+
+     static WebSocketClient client;
+    private static byte[] bytes;
+    private static StringBuffer buffer;
+    /*定义构造函数，实现websocket连接
+     * */
+    /**
+     * 将文本文件中的内容读入到buffer中
+     * @param buffer buffer
+     * @param filePath 文件路径
+     * @throws IOException 异常
+     * @author cn.outofmemory
+     * @date 2013-1-7
+     */
+    public static void readToBuffer(StringBuffer buffer, File filePath) throws IOException {
+        InputStream is = new FileInputStream(filePath);
+        String line; // 用来保存每行读取的内容
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        line = reader.readLine(); // 读取第一行
+        while (line != null) { // 如果 line 为空说明读完了
+            buffer.append(line); // 将读到的内容添加到 buffer 中
+            buffer.append("\n"); // 添加换行符
+            line = reader.readLine(); // 读取下一行
+        }
+        reader.close();
+        is.close();
+    }
+
+    /**
+     * 读取文本文件内容
+     * @param filePath 文件所在路径
+     * @return 文本内容
+     * @throws IOException 异常
+     * @author cn.outofmemory
+     * @date 2013-1-7
+     */
+    public static String readFile(File filePath) throws IOException {
+        StringBuffer sb = new StringBuffer();
+        FileUtils.readToBuffer(sb, filePath);
+        return sb.toString();
+    }
+
+        public static void transportFileToByte(File file,WebSocketClient client) throws IOException, URISyntaxException, InterruptedException {
+            String buffer = readFile(file);
+            Thread.sleep(100);
+             System.out.println("======== start transport ========");
+            System.out.println("...........");
+            client.send(buffer);
+//            session.getBasicRemote().sendText(content);
+            System.out.println("======== transport success ========");
+//            client.send("transport sucess");
+    }
+
+
+
+        /**
+         * 将Byte 转换为File
+         * @return
+         */
+    public static void transportByteToFile(String message,String filepath)  {
+        try
+        {
+            // 创建文件对象
+            File fileText = new File(filepath);
+            // 向文件写入对象写入信息
+            FileWriter fileWriter = new FileWriter(fileText);
+
+            // 写文件
+            fileWriter.write(message);
+            // 关闭
+            fileWriter.close();
+        }
+        catch (IOException e)
+        {
+            //
+            e.printStackTrace();
+        }
+
+     }
+}
+
+
+

@@ -93,7 +93,8 @@ public class sendDataServer extends WebSocketServer {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }}}
+            }}
+    }
 
 
             /**

@@ -11,7 +11,7 @@ public class ReceiveData extends WebSocketAdapter
     public void onWebSocketConnect(Session sess)
     {
         super.onWebSocketConnect(sess);
-        System.out.println("this is event1 !!!" + sess);
+        System.out.println("this is receiveData" + sess);
     }
 
     @Override

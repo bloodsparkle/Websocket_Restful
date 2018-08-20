@@ -23,6 +23,7 @@ public class FileUtils {
      static WebSocketClient client;
     private static byte[] bytes;
     private static StringBuffer buffer;
+
     /*定义构造函数，实现websocket连接
      * */
     /**
@@ -61,7 +62,7 @@ public class FileUtils {
         return sb.toString();
     }
 
-        public static void transportFileToByte(File file, Session session) throws IOException, URISyntaxException, InterruptedException {
+        public static void transportFileToByte(File file,Session session) throws IOException, URISyntaxException, InterruptedException {
             String buffer = readFile(file);
             Thread.sleep(100);
              System.out.println("======== start transport ========");

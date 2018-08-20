@@ -1,13 +1,10 @@
 package me.gacl.websocket;
 
-import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
-import utils.FileUtils;
-import utils.WebSocketPool;
+import jetty.websocket.FileUtils;
 import utils.connectWebsocket;
 
-import javax.websocket.server.ServerEndpoint;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;

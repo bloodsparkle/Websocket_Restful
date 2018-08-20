@@ -2,8 +2,6 @@ package jetty.websocket;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
-import utils.FileUtils;
-import utils.connectWebsocket;
 
 import java.net.URI;
 
@@ -29,8 +27,8 @@ public class ReceiveData extends WebSocketAdapter
         if (message.equals("result")) {
             System.out.println("require python result");
 //            this.session.getBasicRemote().sendText("require result");
-            connectWebsocket wss = new connectWebsocket( revResultUri);
-            wss.connect();
+            connWebsocket wss = new connWebsocket( );
+            wss.connect(revResultUri);
 //            wss.send("haha");
 //            this.session.getBasicRemote().sendText("require result");
             FileUtils rev_data = new FileUtils();

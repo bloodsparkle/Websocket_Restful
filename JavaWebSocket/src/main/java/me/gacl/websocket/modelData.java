@@ -1,18 +1,12 @@
 package me.gacl.websocket;
 
-import org.dom4j.DocumentException;
-import org.java_websocket.drafts.Draft_17;
-import utils.FileUtils;
+import jetty.websocket.FileUtils;
 import utils.connectWebsocket;
-import xmlProcess.DatasetProcessor;
-import xmlProcess.ModuleProcessor;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.*;

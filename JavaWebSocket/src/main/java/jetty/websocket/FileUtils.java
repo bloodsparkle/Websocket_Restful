@@ -1,11 +1,20 @@
-package utils;
+package jetty.websocket;
 
-import org.java_websocket.client.WebSocketClient;
 
-import java.io.*;
+import org.eclipse.jetty.websocket.api.RemoteEndpoint;
+import org.eclipse.jetty.websocket.client.WebSocketClient;
+
+import org.eclipse.jetty.websocket.api.Session;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 
 
 
@@ -52,16 +61,18 @@ public class FileUtils {
         return sb.toString();
     }
 
-        public static void transportFileToByte(File file,WebSocketClient client) throws IOException, URISyntaxException, InterruptedException {
+        public static void transportFileToByte(File file, Session session) throws IOException, URISyntaxException, InterruptedException {
             String buffer = readFile(file);
             Thread.sleep(100);
              System.out.println("======== start transport ========");
             System.out.println("...........");
-            client.send(buffer);
+            RemoteEndpoint remote = session.getRemote();
+            remote.sendString(buffer);
 //            session.getBasicRemote().sendText(content);
             System.out.println("======== transport success ========");
 //            client.send("transport sucess");
     }
+
 
 
 

@@ -2,8 +2,6 @@ package jetty.websocket;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
-import utils.FileUtils;
-import utils.connectWebsocket;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +30,8 @@ public void onWebSocketText(String message)
 //		if (message.equals("init")){
         case ("init"): {
 //                this.session.getBasicRemote().sendText("initial config：");
-            connectWebsocket ws = new connectWebsocket(revModelUri);
-            ws.connect();
+            connWebsocket ws = new connWebsocket();
+            ws.connect(revModelUri);
 
             FileUtils model_data = new FileUtils();
             File model_file = new File("E:\\API\\data\\train\\initConfig.xml");
